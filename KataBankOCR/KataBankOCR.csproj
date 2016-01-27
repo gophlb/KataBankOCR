@@ -43,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountFileProcessors\AbstractAccountFileProcessor.cs" />
+    <Compile Include="AccountFileProcessors\IAccountFileProcessor.cs" />
+    <Compile Include="AccountFileProcessors\OcrFileProcessor.cs" />
     <Compile Include="AccountNumberCheckers\ValidityCodes.cs" />
+    <Compile Include="AccountPostProcessors\CheckNumberValidityAccountPostProcessor.cs" />
+    <Compile Include="AccountPostProcessors\IAccountPostProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReaders\DashPipeRecordReader.cs" />

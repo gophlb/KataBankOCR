@@ -1,6 +1,4 @@
-﻿using KataBankOCR.RecordReaders;
-using KataBankOCR.RecordToAccountParsers;
-using KataBankOCR.Utils;
+﻿using KataBankOCR.AccountFileProcessors;
 using System;
 
 namespace KataBankOCR
@@ -8,16 +6,13 @@ namespace KataBankOCR
     public class Program
     {
         public static void Main(string[] args)
-        {               
-            OcrFileReader ocrFileReader = new OcrFileReader();
-            IRecordReader recordReader = new DashPipeRecordReader();
+        {
+            IAccountFileProcessor accountFileProcessor = new OcrFileProcessor();
+
             string filePath = "../../App_Data/accounts.txt";
-            string[] records = ocrFileReader.ExtractRecordsFrom(filePath, recordReader);
-
-            IRecordToAccountParser recordToAccountParser = new DashPipeRecordToAccountParser();
-            string[] accounts = recordToAccountParser.Parse(records);
-
-            foreach (string account in accounts)
+            string[] processedAccounts = accountFileProcessor.Process(filePath);
+                        
+            foreach (string account in processedAccounts)
             {
                 Console.WriteLine(account);
             }
