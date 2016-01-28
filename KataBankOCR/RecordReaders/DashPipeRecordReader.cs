@@ -1,4 +1,5 @@
 ﻿using KataBankOCR.Models;
+using System.Collections.Generic;
 using System.IO;
 
 namespace KataBankOCR.RecordReaders
@@ -9,28 +10,28 @@ namespace KataBankOCR.RecordReaders
         private const int LineLength = 27;
 
 
-        public Record[] Read(string filePath)
+        public List<Record> Read(string filePath)
         {
             string[] allLines = GetAllContentFrom(filePath);
-            Record[] records = ReadRecords(allLines);
+            List<Record> records = ReadRecords(allLines);
 
             return records;
         }
 
-        private Record[] ReadRecords(string[] allLines)
+        private List<Record> ReadRecords(string[] allLines)
         {
             int numberOfRecords = allLines.Length / LinesPerRecord;
-            Record[] records = new Record[numberOfRecords];
+            List<Record> records = new List<Record>(numberOfRecords);
 
             int currentLine = 0;
             for (int i = 0; i < numberOfRecords; i++)
             {
-                records[i] = new Record
+                records.Add(new Record
                 {
                     Content = allLines[currentLine] + allLines[currentLine + 1] + allLines[currentLine + 2] + allLines[currentLine + 3],
                     LineLength = LineLength,
                     NumberOfLines = LinesPerRecord
-                };
+                });
 
                 currentLine += LinesPerRecord;
             }

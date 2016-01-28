@@ -1,15 +1,16 @@
 ﻿using KataBankOCR.Models;
+using System.Collections.Generic;
 
 namespace KataBankOCR.AccountFileProcessors
 {
     public interface IAccountFileProcessor
     {
-        Account[] Process(string filePath);
+        List<Account> Process(string filePath);
 
-        Record[] ExtractRecords(string filePath);
+        List<Record> ExtractRecords(string filePath);
 
-        Account[] ParseRecordsToAccounts(Record[] records);
+        List<Account> ParseRecordsToAccounts(List<Record> records);
 
-        Account[] PostProcessAccounts(Account[] accounts);
+        List<Account> PostProcessAccounts(List<Account> accounts);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using KataBankOCR.AccountNumberCheckers;
 using KataBankOCR.Models;
 using KataBankOCR.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KataBankOCR.AccountPostProcessors
 {
@@ -14,22 +16,14 @@ namespace KataBankOCR.AccountPostProcessors
         }
 
 
-        public Account[] Process(Account[] accounts)
+        public List<Account> Process(List<Account> accounts)
         {
-            int numberOfAccounts = accounts.Length;
-            Account[] processedAccounts = new Account[numberOfAccounts];
-            Account currentAccount;
-            ValidityCodes.Codes checkNumberResult;
-
-            for (int i = 0; i < numberOfAccounts; i++)
+            List<Account> processedAccounts = accounts.Select(a => new Account
             {
-                currentAccount = accounts[i];
-                checkNumberResult = accountNumberChecker.CheckValidity(currentAccount);
-
-                currentAccount.ValidityCode = checkNumberResult;
-
-                processedAccounts[i] = currentAccount;
-            }
+                Number = a.Number,
+                OriginalPreParsed = a.OriginalPreParsed,
+                ValidityCode = accountNumberChecker.CheckValidity(a)
+            }).ToList();
 
             return processedAccounts;
         }

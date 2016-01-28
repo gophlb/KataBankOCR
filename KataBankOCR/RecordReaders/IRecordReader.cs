@@ -1,9 +1,10 @@
 ﻿using KataBankOCR.Models;
+using System.Collections.Generic;
 
 namespace KataBankOCR.RecordReaders
 {
     public interface IRecordReader
     {
-        Record[] Read(string filePath);
+        List<Record> Read(string filePath);
     }
 }

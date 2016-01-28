@@ -1,9 +1,10 @@
 ﻿using KataBankOCR.Models;
+using System.Collections.Generic;
 
 namespace KataBankOCR.AccountPostProcessors
 {
     public interface IAccountPostProcessor
     {
-        Account[] Process(Account[] accounts);
+        List<Account> Process(List<Account> accounts);
     }
 }
