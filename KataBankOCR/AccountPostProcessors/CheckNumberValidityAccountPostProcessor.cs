@@ -6,9 +6,10 @@ using System.Linq;
 
 namespace KataBankOCR.AccountPostProcessors
 {
-    public class CheckNumberValidityAccountPostProcessor : IAccountPostProcessor
+    public class CheckNumberValidityAccountPostProcessor : AbstractAccountPostProcessor
     {        
         private IAccountNumberChecker accountNumberChecker;
+
 
         public CheckNumberValidityAccountPostProcessor(IAccountNumberChecker accountNumberChecker)
         {
@@ -16,7 +17,7 @@ namespace KataBankOCR.AccountPostProcessors
         }
 
 
-        public List<Account> Process(List<Account> accounts)
+        protected override List<Account> ProcessAccounts(List<Account> accounts)
         {
             List<Account> processedAccounts = accounts.Select(a => new Account
             {

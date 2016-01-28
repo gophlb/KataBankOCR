@@ -14,10 +14,10 @@ namespace KataBankOCR.AccountFileProcessors
             return processedAccounts;
         }
         
-        public abstract List<Record> ExtractRecords(string filePath);
+        protected abstract List<Record> ExtractRecords(string filePath);
 
-        public abstract List<Account> ParseRecordsToAccounts(List<Record> records);
+        protected abstract List<Account> ParseRecordsToAccounts(List<Record> records);
 
-        public abstract List<Account> PostProcessAccounts(List<Account> accounts);
+        protected abstract List<Account> PostProcessAccounts(List<Account> accounts);
     }
 }

@@ -46,10 +46,10 @@
     <Compile Include="AccountFileProcessors\AbstractAccountFileProcessor.cs" />
     <Compile Include="AccountFileProcessors\IAccountFileProcessor.cs" />
     <Compile Include="AccountFileProcessors\OcrFileProcessor.cs" />
+    <Compile Include="AccountPostProcessors\AbstractAccountPostProcessor.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Utils\ValidityCodes.cs" />
     <Compile Include="AccountPostProcessors\CheckNumberValidityAccountPostProcessor.cs" />
-    <Compile Include="AccountPostProcessors\IAccountPostProcessor.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

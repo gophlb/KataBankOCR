@@ -9,8 +9,7 @@ namespace KataBankOCR.AccountFileProcessors
 {
     public class OcrFileProcessor : AbstractAccountFileProcessor
     {
-        
-        public override List<Record> ExtractRecords(string filePath)
+        protected override List<Record> ExtractRecords(string filePath)
         {
             IRecordReader recordReader = new DashPipeRecordReader();
             List<Record> records = recordReader.Read(filePath);
@@ -18,17 +17,17 @@ namespace KataBankOCR.AccountFileProcessors
             return records;
         }
 
-        public override List<Account> ParseRecordsToAccounts(List<Record> records)
+        protected override List<Account> ParseRecordsToAccounts(List<Record> records)
         {
             IRecordToAccountParser recordToAccountParser = new DashPipeRecordToAccountParser();
             List<Account> accounts = recordToAccountParser.Parse(records);
             return accounts;
         }
-        
-        public override List<Account> PostProcessAccounts(List<Account> accounts)
+
+        protected override List<Account> PostProcessAccounts(List<Account> accounts)
         {
             IAccountNumberChecker accountNumberChecker = new ChecksumAccountNumberChecker();
-            IAccountPostProcessor accountPostProcessor = new CheckNumberValidityAccountPostProcessor(accountNumberChecker);
+            AbstractAccountPostProcessor accountPostProcessor = new CheckNumberValidityAccountPostProcessor(accountNumberChecker);
             List<Account> processedAccounts = accountPostProcessor.Process(accounts);
 
             return processedAccounts;
