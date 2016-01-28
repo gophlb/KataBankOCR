@@ -1,20 +1,22 @@
-﻿namespace KataBankOCR.AccountFileProcessors
+﻿using KataBankOCR.Models;
+
+namespace KataBankOCR.AccountFileProcessors
 {
     public abstract class AbstractAccountFileProcessor : IAccountFileProcessor
     {
-        public string[] Process(string filePath)
+        public Account[] Process(string filePath)
         {
-            string[] records = ExtractRecords(filePath);
-            string[] accounts = ParseRecordsToAccounts(records);
-            string[] processedAccounts = PostProcessAccounts(accounts);
+            Record[] records = ExtractRecords(filePath);
+            Account[] accounts = ParseRecordsToAccounts(records);
+            Account[] processedAccounts = PostProcessAccounts(accounts);
 
             return processedAccounts;
         }
         
-        public abstract string[] ExtractRecords(string filePath);
+        public abstract Record[] ExtractRecords(string filePath);
 
-        public abstract string[] ParseRecordsToAccounts(string[] records);
+        public abstract Account[] ParseRecordsToAccounts(Record[] records);
 
-        public abstract string[] PostProcessAccounts(string[] accounts);
+        public abstract Account[] PostProcessAccounts(Account[] accounts);
     }
 }

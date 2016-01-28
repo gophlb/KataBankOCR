@@ -1,4 +1,5 @@
 ﻿using KataBankOCR.AccountFileProcessors;
+using KataBankOCR.Models;
 using System;
 
 namespace KataBankOCR
@@ -10,11 +11,11 @@ namespace KataBankOCR
             IAccountFileProcessor accountFileProcessor = new OcrFileProcessor();
 
             string filePath = "../../App_Data/accounts.txt";
-            string[] processedAccounts = accountFileProcessor.Process(filePath);
+            Account[] processedAccounts = accountFileProcessor.Process(filePath);
                         
-            foreach (string account in processedAccounts)
+            foreach (Account account in processedAccounts)
             {
-                Console.WriteLine(account);
+                Console.WriteLine(account.ToString());
             }
 
             Console.ReadLine();

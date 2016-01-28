@@ -1,7 +1,10 @@
-﻿namespace KataBankOCR.AccountNumberCheckers
+﻿using KataBankOCR.Models;
+using KataBankOCR.Utils;
+
+namespace KataBankOCR.AccountNumberCheckers
 {
     public interface IAccountNumberChecker
     {
-        ValidityCodes.Codes CheckValidity(string accountNumber);
+        ValidityCodes.Codes CheckValidity(Account account);
     }
 }

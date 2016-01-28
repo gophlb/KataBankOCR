@@ -1,13 +1,15 @@
-﻿namespace KataBankOCR.AccountFileProcessors
+﻿using KataBankOCR.Models;
+
+namespace KataBankOCR.AccountFileProcessors
 {
     public interface IAccountFileProcessor
     {
-        string[] Process(string filePath);
+        Account[] Process(string filePath);
 
-        string[] ExtractRecords(string filePath);
+        Record[] ExtractRecords(string filePath);
 
-        string[] ParseRecordsToAccounts(string[] records);
+        Account[] ParseRecordsToAccounts(Record[] records);
 
-        string[] PostProcessAccounts(string[] accounts);
+        Account[] PostProcessAccounts(Account[] accounts);
     }
 }

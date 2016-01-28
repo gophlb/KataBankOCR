@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KataBankOCR.Models;
+using KataBankOCR.Utils;
+using System;
 using System.Linq;
 
 namespace KataBankOCR.AccountNumberCheckers
@@ -7,8 +9,10 @@ namespace KataBankOCR.AccountNumberCheckers
     {
         private int[] coefficients = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
-        public ValidityCodes.Codes CheckValidity(string accountNumber)
+        public ValidityCodes.Codes CheckValidity(Account account)
         {
+            string accountNumber = account.Number;
+
             if (accountNumber.IndexOf('?') != -1)
             {
                 return ValidityCodes.Codes.ILLEGIBLE;
@@ -20,6 +24,7 @@ namespace KataBankOCR.AccountNumberCheckers
             {
                 return ValidityCodes.Codes.VALID;
             }
+
             return ValidityCodes.Codes.ERROR;
         }
     }

@@ -1,17 +1,11 @@
 ﻿using KataBankOCR.AccountNumberCheckers;
-using System.Collections.Generic;
+using KataBankOCR.Models;
+using KataBankOCR.Utils;
 
 namespace KataBankOCR.AccountPostProcessors
 {
     public class CheckNumberValidityAccountPostProcessor : IAccountPostProcessor
-    {
-        private Dictionary<ValidityCodes.Codes, string> Suffixes = new Dictionary<ValidityCodes.Codes, string>
-        {
-            [ValidityCodes.Codes.VALID] = "",
-            [ValidityCodes.Codes.ERROR] = " ERR",
-            [ValidityCodes.Codes.ILLEGIBLE] = " ILL"
-        };
-
+    {        
         private IAccountNumberChecker accountNumberChecker;
 
         public CheckNumberValidityAccountPostProcessor(IAccountNumberChecker accountNumberChecker)
@@ -20,17 +14,21 @@ namespace KataBankOCR.AccountPostProcessors
         }
 
 
-        public string[] Process(string[] accounts)
+        public Account[] Process(Account[] accounts)
         {
             int numberOfAccounts = accounts.Length;
-            string[] processedAccounts = new string[numberOfAccounts];
-            string currentAccount = "";
+            Account[] processedAccounts = new Account[numberOfAccounts];
+            Account currentAccount;
             ValidityCodes.Codes checkNumberResult;
+
             for (int i = 0; i < numberOfAccounts; i++)
             {
                 currentAccount = accounts[i];
                 checkNumberResult = accountNumberChecker.CheckValidity(currentAccount);
-                processedAccounts[i] = currentAccount + Suffixes[checkNumberResult];
+
+                currentAccount.ValidityCode = checkNumberResult;
+
+                processedAccounts[i] = currentAccount;
             }
 
             return processedAccounts;

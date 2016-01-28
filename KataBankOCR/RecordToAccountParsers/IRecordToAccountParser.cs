@@ -1,9 +1,11 @@
-﻿namespace KataBankOCR.RecordToAccountParsers
+﻿using KataBankOCR.Models;
+
+namespace KataBankOCR.RecordToAccountParsers
 {
     public interface IRecordToAccountParser
     {
-        string[] Parse(string[] records);
+        Account[] Parse(Record[] records);
 
-        string Parse(string record);
+        Account Parse(Record record);
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace KataBankOCR.RecordReaders
+﻿using KataBankOCR.Models;
+
+namespace KataBankOCR.RecordReaders
 {
     public interface IRecordReader
     {
-        string[] Read(string[] allLines);
+        Record[] Read(string filePath);
     }
 }

@@ -1,15 +1,16 @@
-﻿namespace KataBankOCR.RecordToAccountParsers
+﻿using KataBankOCR.Models;
+
+namespace KataBankOCR.RecordToAccountParsers
 {
     public class DashPipeRecordToAccountParser : IRecordToAccountParser
     {
-        private const int LineLength = 27;
         private const int DigitWidth = 3;
 
         
-        public string[] Parse(string[] records)
+        public Account[] Parse(Record[] records)
         {
             int numberOfRecords = records.Length;
-            string[] parsedAccounts = new string[numberOfRecords];
+            Account[] parsedAccounts = new Account[numberOfRecords];
 
             for (int i = 0; i < numberOfRecords; i++)
             {
@@ -18,27 +19,32 @@
 
             return parsedAccounts;
         }
+        
 
-
-
-        public string Parse(string record)
+        public Account Parse(Record record)
         {
             string accountNumber = "";
             DashPipeDigitParser dashPipeNumberExtractor = new DashPipeDigitParser();
 
             char[] line1, line2, line3;
             int initialPosition = 0;
+            string recordContent = record.Content;
+            int lineLength = record.LineLength;
             for (int currentDigit = 0; currentDigit < 9; currentDigit++)
             {
                 initialPosition = currentDigit * DigitWidth;
-                line1 = record.Substring(initialPosition, DigitWidth).ToCharArray();
-                line2 = record.Substring(initialPosition + LineLength, DigitWidth).ToCharArray();
-                line3 = record.Substring(initialPosition + (2 * LineLength), DigitWidth).ToCharArray();
+                line1 = recordContent.Substring(initialPosition, DigitWidth).ToCharArray();
+                line2 = recordContent.Substring(initialPosition + lineLength, DigitWidth).ToCharArray();
+                line3 = recordContent.Substring(initialPosition + (2 * lineLength), DigitWidth).ToCharArray();
 
                 accountNumber += dashPipeNumberExtractor.Parse(line1, line2, line3);
             }
 
-            return accountNumber;
+            return new Account
+            {
+                Number = accountNumber,
+                OriginalPreParsed = recordContent
+            };
         }
     }
 }
