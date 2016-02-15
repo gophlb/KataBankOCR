@@ -60,7 +60,6 @@
     <Compile Include="AccountNumberCheckers\IAccountNumberChecker.cs" />
     <Compile Include="RecordToAccountParsers\IRecordToAccountParser.cs" />
     <Compile Include="AccountNumberCheckers\ChecksumAccountNumberChecker.cs" />
-    <Compile Include="Utils\OcrNumbers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

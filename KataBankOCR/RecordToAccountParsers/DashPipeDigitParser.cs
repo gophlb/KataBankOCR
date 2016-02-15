@@ -1,5 +1,4 @@
-﻿using KataBankOCR.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace KataBankOCR.RecordToAccountParsers
@@ -8,18 +7,70 @@ namespace KataBankOCR.RecordToAccountParsers
     {
         private const string IllegibleDigit = "?";
 
+        private static string ZERO = " _ " +
+                                     "| |" +
+                                     "|_|"
+                                    ;
+
+        private static string ONE = "   " +
+                                    "  |" +
+                                    "  |"
+                                   ;
+
+        private static string TWO = " _ " +
+                                    " _|" +
+                                    "|_ "
+                                   ;
+
+        private static string THREE = " _ " +
+                                      " _|" +
+                                      " _|"
+                                     ;
+
+        private static string FOUR = "   " +
+                                     "|_|" +
+                                     "  |"
+                                    ;
+
+        private static string FIVE = " _ " +
+                                     "|_ " +
+                                     " _|"
+                                    ;
+
+        private static string SIX = " _ " +
+                                    "|_ " +
+                                    "|_|"
+                                    ;
+
+        private static string SEVEN = " _ " +
+                                      "  |" +
+                                      "  |"
+                                     ;
+
+        private static string EIGHT = " _ " +
+                                      "|_|" +
+                                      "|_|"
+                                    ;
+
+        private static string NINE = " _ " +
+                                     "|_|" +
+                                     " _|"
+                                    ;
+
+
+
         private Dictionary<string, string> numbers = new Dictionary<string, string>
         {
-            [OcrNumbers.ZERO] = "0",
-            [OcrNumbers.ONE] = "1",
-            [OcrNumbers.TWO] = "2",
-            [OcrNumbers.THREE] = "3",
-            [OcrNumbers.FOUR] = "4",
-            [OcrNumbers.FIVE] = "5",
-            [OcrNumbers.SIX] = "6",
-            [OcrNumbers.SEVEN] = "7",
-            [OcrNumbers.EIGHT] = "8",
-            [OcrNumbers.NINE] = "9"
+            [ZERO] = "0",
+            [ONE] = "1",
+            [TWO] = "2",
+            [THREE] = "3",
+            [FOUR] = "4",
+            [FIVE] = "5",
+            [SIX] = "6",
+            [SEVEN] = "7",
+            [EIGHT] = "8",
+            [NINE] = "9"
         };
 
         public string Parse(char[] line1, char[] line2, char[] line3)
