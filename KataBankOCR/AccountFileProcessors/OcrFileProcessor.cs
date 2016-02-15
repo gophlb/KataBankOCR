@@ -11,7 +11,7 @@ namespace KataBankOCR.AccountFileProcessors
     {
         protected override List<Record> ExtractRecords(string filePath)
         {
-            IRecordReader recordReader = new DashPipeRecordReader();
+            IRecordReader recordReader = GetRecordReader();
             List<Record> records = recordReader.Read(filePath);
 
             return records;
@@ -19,18 +19,41 @@ namespace KataBankOCR.AccountFileProcessors
 
         protected override List<Account> ParseRecordsToAccounts(List<Record> records)
         {
-            IRecordToAccountParser recordToAccountParser = new DashPipeRecordToAccountParser();
+            IRecordToAccountParser recordToAccountParser = GetRecordToAccountParser();
             List<Account> accounts = recordToAccountParser.Parse(records);
             return accounts;
         }
 
         protected override List<Account> PostProcessAccounts(List<Account> accounts)
         {
-            IAccountNumberChecker accountNumberChecker = new ChecksumAccountNumberChecker();
-            AbstractAccountPostProcessor accountPostProcessor = new CheckNumberValidityAccountPostProcessor(accountNumberChecker);
+            IAccountNumberChecker accountNumberChecker = GetAccountNumberChecker();
+            AbstractAccountPostProcessor accountPostProcessor = GetAccountPostProcessor(accountNumberChecker);
             List<Account> processedAccounts = accountPostProcessor.Process(accounts);
 
             return processedAccounts;
         }
+
+
+
+        protected override IRecordReader GetRecordReader()
+        {
+            return new DashPipeRecordReader();
+        }
+
+        protected override IRecordToAccountParser GetRecordToAccountParser()
+        {
+            return new DashPipeRecordToAccountParser();
+        }
+
+        protected override IAccountNumberChecker GetAccountNumberChecker()
+        {
+            return new ChecksumAccountNumberChecker();
+        }
+
+        protected override AbstractAccountPostProcessor GetAccountPostProcessor(IAccountNumberChecker accountNumberChecker)
+        {
+            return new CheckNumberValidityAccountPostProcessor(accountNumberChecker);
+        }
+
     }
 }

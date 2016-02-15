@@ -1,6 +1,5 @@
 ﻿using KataBankOCR.AccountNumberCheckers;
 using KataBankOCR.Models;
-using KataBankOCR.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
